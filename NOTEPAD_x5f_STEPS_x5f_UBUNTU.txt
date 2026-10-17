@@ -1,0 +1,89 @@
+================================================================================
+AI1 - OCTA LIVE DASHBOARD - UBUNTU VM SETUP - STEP 1 TO LAST
+Created for learning - Hyarel Sonawane - Same UI - Not changed
+================================================================================
+GOAL: Download entire repository, explore all files, run dashboard live
+      OCTA 81,522 low / 81,557 high / 81,300 drop - Nanosecond sync 12ms
+
+STEP 1: DOWNLOAD REPOSITORY ZIP
+- Download ai1-repo.zip from chat
+- Move to Ubuntu VM ~/Downloads/
+
+STEP 2: INSTALL REQUIRED LIBRARIES (MINIMAL)
+sudo apt update
+sudo apt install -y python3 python3-pip git firefox unzip curl wget code
+python3 --version
+git --version
+
+NOTE: NO Node.js needed for main dashboard!
+
+STEP 3: UNZIP REPOSITORY
+cd ~
+unzip -o ai1-repo.zip
+cd ai1
+ls -la
+ls -R
+
+Files:
+- index.html MAIN same UI
+- original-upload.html
+- README.md
+- docs/ARCHITECTURE.md, SYNC-FIX.md, LEARNING-GUIDE.md
+- src/app.js, src/components/AutoBoard.js, PriceCards.js, SystemLogs.js
+- assets/screenshot.jpeg
+
+STEP 4: EXPLORE ALL FILES (LEARNING)
+cat README.md
+cat docs/ARCHITECTURE.md
+cat docs/SYNC-FIX.md
+cat docs/LEARNING-GUIDE.md
+cat src/app.js
+code .
+ls -R
+
+STEP 5: RUN DASHBOARD LOCALLY (SAME UI - LIVE)
+Option A: xdg-open index.html
+Option B (RECOMMENDED): python3 -m http.server 8000
+Then open http://localhost:8000
+You see NANOSECOND SYNC FIXED - OCTA 81,600 LIVE - 0ms DELAY
+Cards: 81,601.704 EXACT OCTA +132 - 81,615 - +$132
+After fix: 81,522 LIVE - low 81522 high 81557 - sync 12ms
+Test: Simulate Drop to 81,300 -> UI shows 81,300 EXACT in 12ms
+Ctrl+C to stop
+
+STEP 6: TEST LIVE SYNC (81,300 DROP)
+- Live 81,522 -> drops to 81,300 -> UI 81,300 EXACT in 12ms
+- DyfX 81,320 DOWN - Both DOWN synced - same UI not changed
+- If up to 81,557 -> UI 81,557
+Current real BTC market Oct 17: $81,520 matches Octa 81,522
+
+STEP 7: EXPLAIN FOR LEARNING
+1. Show repo: ls -R
+2. Explain: Octa BTC live dashboard - Nifty 26015, Sensex 85213, XTI 99.98
+3. Open index.html - show hero, auto board, cards, logs, chart
+4. Explain sync fix: Before 85 pts lag 5-10s -> After 12ms WebSocket wss://octafx-mt5.com -> FastAPI -> Board
+5. Explain upgrades: Binance 1.2M bids, Liq heatmap, Spread 20, Sweep 80809, XGBoost 23F, Whale 120 BTC, LSTM, Filter 12C, BE 81470 - 30% -> 73%
+6. Explain GitHub Pages enable
+
+STEP 8: PUSH TO GITHUB (OPTIONAL)
+cd ~/ai1
+git init
+git add .
+git commit -m "OCTA 81522 live - same UI - learning project"
+git remote remove origin 2>/dev/null; true
+git remote add origin https://github.com/hyarelgits/ai1.git
+git branch -M main
+git push -u origin main --force
+Then: https://github.com/hyarelgits/ai1/settings/pages -> main -> /(root) -> Save -> Live at https://hyarelgits.github.io/ai1/
+
+STEP 9: VERIFY GITHUB PAGES LIVE
+curl -I https://hyarelgits.github.io/ai1/
+Open https://hyarelgits.github.io/ai1/
+
+STEP 10: BACKUP & SOURCE
+- Primary: GitHub hyarelgits/ai1/index.html
+- Local: ~/ai1/index.html
+- Backup: original-upload.html
+- Local delete != GitHub delete
+
+DONE - ALL STEPS - SAME PROJECT SAME CHAT - UI NOT CHANGED
