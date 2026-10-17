@@ -1,0 +1,14 @@
+# UBUNTU VM - COPY PASTE ALL - STEP 1 TO LAST
+sudo apt update && sudo apt install -y python3 python3-pip git firefox unzip curl wget code
+cd ~
+unzip -o ai1-repo.zip
+cd ai1
+ls -la
+ls -R
+cat README.md
+cat docs/ARCHITECTURE.md
+cat docs/SYNC-FIX.md
+cat src/app.js
+python3 -m http.server 8000
+# Open http://localhost:8000
+# xdg-open index.html alternative
