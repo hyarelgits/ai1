@@ -1,0 +1,36 @@
+https://github.com/hyarelgits/ai1.git
+
+app.py
+
+from flask import Flask, jsonify
+from flask_cors import CORS
+app = Flask(__name__)
+CORS(app)
+
+@app.route('/api/status')
+def status():
+    return jsonify({"binance":81228,"sl":80600,"status":"NOT HIT","bounce":409,"cvd":12.4,"bos":"bullish"})
+
+if __name__=='__main__':
+    app.run(debug=True)
+
+    _----_-----
+
+requirements.txt
+
+   
+Flask
+flask-cors
+
+_----_-
+
+
+README.md
+
+# BTCUSD AI Dashboard
+Live: https://hyarelgits.github.io/ai1/
+Binance $81,228 | SL $80,600 NOT HIT | CVD +$12.4M
+
+
+
+    _----
