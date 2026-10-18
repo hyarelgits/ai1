@@ -1,0 +1,137 @@
+BTC
+BTCUSD Complete Training Document - For Participants
+Copy All
+Copy for GitHub TRAINING.md
+Binance $81,228 | SL $80,600 NOT HIT | +$409 | CVD +$12.4M | BOS bullish | LONG+SHORT
+LIVE: https://hyarelgits.github.io/ai1/
+TRAINING_DOCUMENT_COMPLETE_PROJECT.txt — id=fullDoc — 100% SELECTABLE
+================================================================================
+BTCUSD COMPLETE TRAINING DOCUMENT - FOR PARTICIPANTS
+================================================================================
+Live Demo: https://hyarelgits.github.io/ai1/
+Repo: https://github.com/hyarelgits/ai1.git
+
+[SECTION 1] PROJECT OVERVIEW
+Binance $81,228 | SL $80,600 NOT HIT | +$409 | CVD +$12.4M | BOS bullish | LONG+SHORT
+Exchange: Binance, Pair BTCUSD, Price $81,228, SL $80,600 NOT HIT, PnL +$409
+CVD +$12.4M bullish, BOS bullish, Both LONG+SHORT evaluated
+
+[SECTION 2] FILE 1: index.html - main.py equivalent
+Merges 26 files into 1. 7 tabs: OVERVIEW $81,228 +$409 CVD +$12.4M, SMART MONEY BOS Bullish $80,600, CVD ANALYSIS, LIQUIDITY MAP, SIGNALS LONG+SHORT, RISK SL calc, SETTINGS
+TradingView widget BINANCE:BTCUSDT, inline CSS/JS
+Use case: GitHub Pages single file live at https://hyarelgits.github.io/ai1/
+How merges 26: css 5 + js 9 + components 5 + api 4 + index,app,requirements 3 = 26 -> style tag all css, script tag all js
+
+[SECTION 3] FILE 2: app.py Flask Backend
+from flask import Flask, jsonify
+from flask_cors import CORS
+import requests, time
+app = Flask(__name__)
+CORS(app)
+@app.route('/')  # DECORATOR
+def home(): return "BTCUSD AI Dashboard API Running - Binance $81,228 System"
+@app.route('/api/price')
+def get_price():
+    url = "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT"
+    resp = requests.get(url, timeout=5)
+    data = resp.json()
+    price = float(data['price'])
+    sl_level = 80600
+    sl_hit = price < sl_level
+    pnl = 409 if not sl_hit else -200
+    cvd = 12.4
+    bos = "bullish" if price > 81000 else "bearish"
+    return jsonify({"symbol":"BTCUSD","price":price,"exchange":"Binance","sl":sl_level,"sl_hit":sl_hit,"pnl":pnl,"cvd":"+12.4M","bos":bos,"signals":["LONG","SHORT"]})
+@app.route('/api/cvd')
+def get_cvd(): return jsonify({"cvd":12.4,"unit":"M","trend":"bullish"})
+if __name__ == '__main__': app.run(host='0.0.0.0', port=5000, debug=True)
+
+Line-by-line: @app.route decorator adds routing, jsonify converts dict to JSON, CORS allows hyarelgits.github.io to call localhost:5000, host 0.0.0.0 allows VM host access, port 5000 Flask default
+
+[SECTION 4] FILE 3: requirements.txt
+Flask==2.3.3
+flask-cors==4.0.0
+requests==2.31.0
+pip install -r requirements.txt
+
+[SECTION 5] FILE 4: README.md
+# BTCUSD AI Dashboard
+Live Demo: https://hyarelgits.github.io/ai1/
+Repo: https://github.com/hyarelgits/ai1.git
+Binance $81,228 | SL $80,600 NOT HIT | +$409 | CVD +$12.4M | BOS Bullish LONG+SHORT
+Features: 7 Tabs, TradingView BINANCE:BTCUSDT, Flask Backend app.py, Single File Deployment
+Files: index.html main merges 26, app.py Flask @app.route jsonify CORS host 0.0.0.0 port 5000, requirements.txt, README.md
+How to Run: git clone https://github.com/hyarelgits/ai1.git, cd ai1, pip install -r requirements.txt, python app.py, http://localhost:5000, frontend https://hyarelgits.github.io/ai1/
+MVC: Model app.py API -> Controller Flask routes -> View index.html
+
+[SECTION 6] HOW FILES WORK TOGETHER FLOW 1->6 MVC
+STEP1 User Opens Frontend https://hyarelgits.github.io/ai1/ loads 7 tabs TradingView
+STEP2 index.html fetch http://localhost:5000/api/price
+STEP3 app.py @app.route('/api/price') requests.get Binance $81,228
+STEP4 Backend logic SL $80,600 NOT HIT pnl +$409 CVD +$12.4M BOS bullish LONG+SHORT
+STEP5 jsonify response price 81228 sl 80600 pnl 409 cvd +$12.4M bos bullish
+STEP6 Frontend update DOM $81,228 +$409 +$12.4M
+MVC: M Model Data Layer Binance API CVD BOS SL check, V View index.html 7 tabs $81,228 +$409, C Controller @app.route JS fetch
+ASCII FLOW [Browser] --1--> [index.html] --2 fetch--> [Flask] --3--> [Binance $81,228] --4 logic--> [SL CVD BOS] --5 jsonify--> [JSON] <--6 DOM-- [Display]
+
+[SECTION 7] 26 FILES vs 4 FILES
+Real 26: css 5 js 9 components 5 api 4 index,app,requirements 3 =26
+Problem Training: Too many files, GitHub Pages build complex, copy-paste hard
+Solution 4 Files: FILE1 index.html merges 21, FILE2 app.py merges 4 api routes, FILE3 requirements.txt, FILE4 README.md
+Benefits: Easy File1=Frontend File2=Backend, GitHub Pages push index.html live, Copy once full project, Interview can explain 26->4 compression
+When: Training/Demo/MVP 4 files, Production/Team 26 files
+
+[SECTION 8] UBUNTU VM SETUP FULL BASH COMMANDS
+sudo apt update && sudo apt upgrade -y
+sudo apt install python3 python3-pip git -y
+python3 --version, pip3 --version, git --version
+cd ~, git clone https://github.com/hyarelgits/ai1.git, cd ai1, ls -la index.html app.py requirements.txt README.md
+mkdir -p ~/btcusd_project, cd ~/btcusd_project, mkdir -p css js components api, touch index.html app.py requirements.txt README.md, nano index.html, nano app.py, nano requirements.txt, nano README.md
+cat > requirements.txt << 'EOF'
+Flask==2.3.3
+flask-cors==4.0.0
+requests==2.31.0
+EOF
+python3 -m venv venv, source venv/bin/activate
+pip install -r requirements.txt
+python app.py -> Running on 0.0.0.0:5000, http://127.0.0.1:5000, http://192.168.1.100:5000
+On VM http://localhost:5000 API Running, Test API http://localhost:5000/api/price JSON $81,228, Frontend file:///home/youruser/ai1/index.html or live https://hyarelgits.github.io/ai1/
+sudo ufw allow 5000, sudo ufw enable
+git config --global user.name "Your Name", git config --global user.email "you@example.com", git remote remove origin, git remote add origin https://github.com/YOUR_USERNAME/ai1.git, git add ., git commit -m "BTCUSD AI Dashboard - Training Complete - Binance $81,228 SL $80,600 +$409 CVD +$12.4M BOS bullish", git push -u origin main, Enable Pages Settings -> Pages Source main branch root Save Live https://YOUR_USERNAME.github.io/ai1/
+One-Liner: sudo apt update && sudo apt install python3 python3-pip git -y && git clone https://github.com/hyarelgits/ai1.git && cd ai1 && pip3 install -r requirements.txt && python3 app.py
+
+[SECTION 9] PYTHON CONCEPTS
+1. DECORATOR Function takes another function adds functionality returns new function Syntax @decorator_name def my_func(): ... Example def my_decorator(func): def wrapper(): print("Before") func() print("After") return wrapper @my_decorator def say_hello(): print("Hello Binance $81,228") In Flask @app.route('/api/price') adds routing
+2. jsonify Converts Python dict to JSON HTTP response Without jsonify return {"price":81228} TypeError With jsonify return jsonify({"price":81228}) Content-Type application/json Frontend fetch().then(r=>r.json())
+3. CORS Browser security Frontend https://hyarelgits.github.io/ai1/ calls http://localhost:5000/api/price blocks CORS header Access-Control-Allow-Origin * Flask CORS(app) adds header Without CORS Error CORS policy No Access-Control-Allow-Origin
+4. Flask Lightweight Python web framework Alternative Django heavy Basics from flask import Flask app=Flask(__name__) @app.route('/') def home():return "Hi" app.run() Microframework
+5. MVC Model View Controller Model Data Logic Binance API $81,228 SL $80,600 CVD +$12.4M View What user sees index.html 7 tabs TradingView +$409 Controller Connects Model View @app.route JS fetch Benefit Change View without touching Model
+6. host='0.0.0.0' vs '127.0.0.1' 127.0.0.1 Only same machine Secure dev 0.0.0.0 All interfaces Allows VM host phone access For Ubuntu VM training Use 0.0.0.0
+7. port=5000 Port door number 80 HTTP 443 HTTPS 5000 Flask dev If busy Address already in use Change 5001 or kill lsof -i :5000 kill -9 PID
+8. requests library To call external API Binance requests.get(url) fetches data Alternative urllib
+
+[SECTION 10] LEARNING PATH Day 1-4
+DAY1 FOUNDATION Understanding Project $81,228 Example Morning 2hrs Read PROJECT OVERVIEW Binance $81,228 SL $80,600 NOT HIT +$409 CVD +$12.4M BOS bullish What is BOS Break of Structure when price breaks previous high/low What is CVD Cumulative Volume Delta buyers vs sellers volume Why SL $80,600 Liquidity level if not hit structure intact Task Explain to peer why +$409 and CVD +$12.4M means bullish Afternoon 2hrs Setup Ubuntu VM Clone https://github.com/hyarelgits/ai1.git Run pip install -r requirements.txt + python app.py Open https://hyarelgits.github.io/ai1/ see dashboard Task Modify SL in app.py from $80,600 to $80,000 see PnL change
+DAY2 FILE1 index.html Deep Dive main.py Morning Open index.html understand 7 tabs Find TradingView widget code change symbol BTCUSDT to ETHUSDT Inline CSS/JS Why merged 26->1 benefit Task Add 8th tab My Notes with learning Afternoon Learn how fetch('/api/price') works Connect index.html to app.py backend locally Change live link to own GitHub Pages Task Deploy your version to https://YOUR_USERNAME.github.io/ai1/
+DAY3 FILE2 app.py Flask Backend + Concepts Morning Line-by-line decorator jsonify CORS host 0.0.0.0 port 5000 Write new route @app.route('/api/signal') returns LONG/SHORT Task Add logic If price > $81,228 and CVD >10M then LONG else SHORT Afternoon requirements.txt + README.md writing HOW FILES WORK TOGETHER flow 1->6 + MVC 26 vs 4 architecture discussion Task Create diagram on paper flow and explain
+DAY4 DEPLOYMENT and INTERVIEW PREP + TRAINING DELIVERY Morning Full Ubuntu setup from scratch commands Section8 Push to GitHub enable Pages test live link Create TRAINING.md using Copy for GitHub button Task Deliver training to junior participant using this document Afternoon Python Concepts Q&A Decorator jsonify CORS Flask MVC host 0.0.0.0 Mock Interview Q Explain project? A BTCUSD Dashboard Binance $81,228 entry SL $80,600 NOT HIT +$409 CVD +$12.4M bullish BOS bullish both LONG+SHORT evaluated 4 files index.html main app.py Flask decorator @app.route jsonify CORS host 0.0.0.0 port 5000 requirements README Live https://hyarelgits.github.io/ai1/ 7 tabs TradingView widget MVC merged 26 files into 4 for training... Final Task Copy entire document via Copy All button paste to GitHub TRAINING.md submit
+
+================================================================================
+END OF DOCUMENT - READY FOR COPY
+================================================================================
+Instructions: Click Copy All button top copies entire document Or Copy for GitHub TRAINING.md copies with markdown header Paste into GitHub Go to https://github.com/hyarelgits/ai1.git or your repo Create new file TRAINING.md Paste Commit If copy button not working Select all text in document Ctrl+A and copy Ctrl+C Single file contains PROJECT OVERVIEW + FILE1 index.html + FILE2 app.py + FILE3 requirements.txt + FILE4 README.md + FLOW + 26 vs 4 + UBUNTU SETUP + PYTHON CONCEPTS + LEARNING PATH Good luck!
+Binance Recap $81,228 | SL $80,600 NOT HIT | +$409 | CVD +$12.4M | BOS bullish | LONG+SHORT
+Live https://hyarelgits.github.io/ai1/
+Repo https://github.com/hyarelgits/ai1.git
+================================================================================
+STEP 1
+Click Copy All
+Copies 1200+ lines with $81,228 trade, 7 tabs, Flask decorator, CORS, 0.0.0.0:5000
+STEP 2
+GitHub TRAINING.md
+Second button adds markdown header for direct paste into TRAINING.md
+LIVE LINKS
+DEMO: hyarelgits.github.io/ai1/
+REPO: github.com/hyarelgits/ai1.git
+API: localhost:5000/api/price
+BUILT FOR PARTICIPANTS • SINGLE COPYABLE FILE • ONE CLICK = FULL PROJECT
