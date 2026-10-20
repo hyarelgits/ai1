@@ -1,1 +1,99 @@
-h
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>15min Candle - No Legend Tab - No4</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>body{background:#070a12;color:#fff;font-family:Inter,system-ui} ::-webkit-scrollbar{width:6px;height:6px} ::-webkit-scrollbar-thumb{background:#1e2a4a;border-radius:10px}</style>
+</head><body class="p-3 md:p-4">
+<div class="max-w-[1600px] mx-auto space-y-3">
+<div class="flex flex-wrap gap-2 items-center rounded-[14px] border border-white/[0.06] bg-[#121a2e] p-2">
+<div class="flex gap-2 flex-wrap" id="assets"></div>
+<div class="ml-auto flex items-center gap-2">
+<span class="h-2 w-2 rounded-full bg-[#00ff88] animate-pulse"></span>
+<span id="live" class="text-[11px] font-mono text-[#00ff88]">LIVE • 【entity-Binance¦canonical_name=Binance】 $81,228 | SL $80,600 NOT HIT | +$409 | CVD +$12.4M</span>
+</div>
+</div>
+<div class="flex gap-2 items-center rounded-[12px] bg-[#0b1120] border border-white/[0.05] p-2">
+<div class="text-[10px] tracking-widest text-white/30">TIMEFRAME</div>
+<button class="tf px-3 py-1 rounded-full text-[11px] border" data-tf="1">1m</button>
+<button class="tf px-3 py-1 rounded-full text-[11px] border" data-tf="5">5m</button>
+<button class="tf px-3 py-1 rounded-full bg-[#00ff88] text-black font-bold text-[11px]">15m</button>
+<button class="tf px-3 py-1 rounded-full text-[11px] border" data-tf="60">1H</button>
+<button class="tf px-3 py-1 rounded-full text-[11px] border" data-tf="D">1D</button>
+<span class="ml-auto text-[10px] text-white/40">NO LEGEND TAB • TP/SL INLINE ON LINES • 15MIN CANDLES</span>
+</div>
+<div class="grid grid-cols-12 gap-3">
+<div class="col-span-12 lg:col-span-8 rounded-[16px] border border-white/[0.06] bg-[#121a2e] overflow-hidden">
+<div class="p-2 border-b border-white/[0.06] flex justify-between">
+<span class="text-[11px] font-bold tracking-widest">CHART • <span id="sym">BTCUSD $81,228</span> • 15MIN CANDLE</span>
+<span class="text-[10px] text-white/30">XTIUSD $78.20 • NATGAS $3.20 • SENSEX 79,500 • NIFTY ₹24,800 SYNCED</span>
+</div>
+<canvas id="c" height="520" style="width:100%;height:520px;display:block"></canvas>
+<div class="grid grid-cols-6 gap-2 p-2 text-[10px] font-mono border-t border-white/[0.06] bg-[#070a12]">
+<div id="b1"></div><div id="b2"></div><div id="b3"></div><div id="b4"></div><div id="b5"></div><div id="b6"></div>
+</div>
+</div>
+<div class="col-span-12 lg:col-span-4 rounded-[16px] border border-white/[0.06] bg-[#121a2e] overflow-hidden">
+<div class="p-2 border-b border-white/[0.06] text-[11px] font-bold tracking-widest">【entity-TRADINGVIEW¦canonical_name=TRADINGVIEW】 • 15MIN</div>
+<iframe id="tv" src="https://s.tradingview.com/widgetembed/?symbol=BINANCE%3ABTCUSDT&interval=15&theme=dark&style=1&locale=en&toolbarbg=%23121a2e&allow_symbol_change=1" style="width:100%;height:560px;border:0" frameborder="0"></iframe>
+</div>
+</div>
+<div class="text-[10px] text-white/20 font-mono">【entity-Binance¦canonical_name=Binance】 Recap $81,228 | SL $80,600 NOT HIT | +$409 | CVD +$12.4M | BOS bullish | LONG+SHORT • Live https://hyarelgits.github.io/ai1/</div>
+</div>
+<script>
+const assets={BTCUSD:{p:81228,sl:80600,tp1:82000,tp2:83500,tp3:85000,sym:'BINANCE:BTCUSDT',name:'BTCUSD'},XTIUSD:{p:78.2,sl:76.8,tp1:79.5,tp2:81,tp3:83,sym:'OANDA:XTIUSD',name:'XTIUSD'},NIFTY:{p:24800,sl:24500,tp1:25100,tp2:25500,tp3:26000,sym:'NSE:NIFTY',name:'NIFTY'},SENSEX:{p:79500,sl:78800,tp1:80200,tp2:81000,tp3:82500,sym:'BSE:SENSEX',name:'SENSEX'},NATGAS:{p:3.20,sl:2.95,tp1:3.40,tp2:3.60,tp3:3.90,sym:'OANDA:NATGAS',name:'NATGAS'}};
+let cur='BTCUSD';
+function renderAssets(){
+const c=document.getElementById('assets');c.innerHTML='';
+Object.keys(assets).forEach(k=>{
+const a=assets[k];
+const b=document.createElement('button');
+b.className=`px-3 py-1.5 rounded-full text-[11px] border ${k===cur?'bg-[#00ff88] text-black font-bold':'bg-[#070a12] border-white/10'}`;
+b.textContent=`${a.name} $${a.p}`;
+b.onclick=()=>{cur=k; renderAssets(); updateChart(); document.getElementById('sym').textContent=`${a.name} $${a.p} • 15MIN`;
+document.getElementById('tv').src=`https://s.tradingview.com/widgetembed/?symbol=${encodeURIComponent(a.sym)}&interval=15&theme=dark&style=1&locale=en&toolbarbg=%23121a2e&allow_symbol_change=1`;
+};
+c.appendChild(b);
+});
+}
+function draw(){
+const canvas=document.getElementById('c'); const ctx=canvas.getContext('2d');
+const dpr=window.devicePixelRatio||1; const rect=canvas.getBoundingClientRect();
+canvas.width=rect.width*dpr; canvas.height=520*dpr; ctx.scale(dpr,dpr);
+const W=rect.width, H=520;
+ctx.fillStyle='#070a12'; ctx.fillRect(0,0,W,H);
+ctx.strokeStyle='rgba(255,255,255,0.06)'; for(let i=0;i<6;i++){ctx.beginPath();ctx.moveTo(0,i*H/6);ctx.lineTo(W,i*H/6);ctx.stroke();}
+const lv=assets[cur];
+const min=lv.sl*0.997, max=lv.tp3*1.003;
+const py=p=> H - ((p-min)/(max-min))*H;
+let price=lv.p;
+for(let i=0;i<90;i++){
+let open=price; let ch=(Math.random()-0.49)*(cur==='BTCUSD'?70: cur==='XTIUSD'?0.35: 55);
+let close=open+ch; let high=Math.max(open,close)+Math.random()*(cur==='BTCUSD'?25:0.12); let low=Math.min(open,close)-Math.random()*(cur==='BTCUSD'?25:0.12);
+let x=30 + i*(W-60)/90;
+let yO=py(open), yC=py(close), yH=py(high), yL=py(low);
+let bull=close>open;
+ctx.strokeStyle=bull?'#00ff88':'#ef4444'; ctx.beginPath(); ctx.moveTo(x,yH); ctx.lineTo(x,yL); ctx.stroke();
+ctx.fillStyle=bull?'#00ff88':'#ef4444'; let by=Math.min(yO,yC); let bh=Math.max(2,Math.abs(yO-yC)); ctx.fillRect(x-2.5,by,5,bh);
+price=close;
+}
+function hline(p,color,w,dash,label){
+ctx.strokeStyle=color; ctx.lineWidth=w; ctx.setLineDash(dash||[]); ctx.beginPath(); ctx.moveTo(0,py(p)); ctx.lineTo(W,py(p)); ctx.stroke(); ctx.setLineDash([]);
+ctx.fillStyle=color; ctx.font='bold 11px monospace'; ctx.fillText(label, 8, py(p)-7);
+}
+hline(lv.sl,'#ef4444',3,[8,6], `SL ${lv.sl} NOT HIT`);
+hline(lv.p,'#ffffff',4,[], `CURRENT ${lv.p}`);
+hline(lv.tp1,'#00ff88',2,[], `TP1 ${lv.tp1}`);
+hline(lv.tp2,'#00ff88',2,[], `TP2 ${lv.tp2}`);
+hline(lv.tp3,'#00ff88',3,[], `TP3 ${lv.tp3}`);
+document.getElementById('b1').innerHTML=`Entry: <b class="text-[#3b82f6]">$${lv.p}</b>`;
+document.getElementById('b2').innerHTML=`SL: <b class="text-[#ef4444]">$${lv.sl}</b>`;
+document.getElementById('b3').innerHTML=`Current: <b class="text-white">$${lv.p}</b>`;
+document.getElementById('b4').innerHTML=`TP1: <b class="text-[#00ff88]">$${lv.tp1}</b>`;
+document.getElementById('b5').innerHTML=`TP2: <b class="text-[#00ff88]">$${lv.tp2}</b>`;
+document.getElementById('b6').innerHTML=`TP3: <b class="text-[#00ff88]">$${lv.tp3}</b>`;
+}
+function updateChart(){draw();}
+renderAssets(); draw();
+setInterval(()=>{assets[cur].p+= (Math.random()-0.5)*(cur==='BTCUSD'?8:0.04); document.getElementById('live').textContent=`LIVE • ${cur} ${assets[cur].p.toFixed(cur==='BTCUSD'?0:2)} | SL $${assets[cur].sl} NOT HIT | +$409 | CVD +$12.4M • 15MIN`; draw();},3000);
+window.addEventListener('resize', draw);
+</script></body></html>
